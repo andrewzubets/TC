@@ -1,0 +1,74 @@
+name: "${APP_NAME}_dev"
+# docker compose -f compose-dev.yaml up
+services:
+  express:
+    container_name: "${APP_NAME_SHORT}d.node-express"
+    build:
+      context: .
+      dockerfile: ./docker-services/express/Dockerfile
+      args:
+        APP_ENV: "development"
+    environment:
+      NODE_ENV: "development"
+      PORT: ${APP_PORT}
+      DB_HOST: "mysqldb"
+      DB_NAME: ${MYSQL_USER}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DEBUG: "nodemon,nodemon:*"
+    ports:
+      - "3000:${APP_PORT}"
+      - "9229:9229"
+    volumes:
+      - ./app/server.mjs/:/www/server.mjs
+      - ./app/package.json/:/www/package.json
+      - ./app/src/:/www/src
+      - ./app/public/:/www/public
+    networks:
+      - node-network
+    command: "nodemon -e mjs --watch src --watch server.mjs -L --inspect=0.0.0.0:9229 server.mjs"
+  frontend:
+    container_name: "${APP_NAME_SHORT}d.frontend"
+    build:
+      context: .
+      dockerfile: ./docker-services/frontend/Dockerfile
+    volumes:
+      - ./app/public:/app/public
+      - ./frontend/vite.config.js:/www/vite.config.js
+      - ./frontend/src/:/www/src
+      - ./frontend/scss/:/www/scss
+      - ./frontend/public/:/www/public
+    networks:
+      - node-network
+  mysqldb:
+    container_name: "${APP_NAME_SHORT}d.mysql"
+    build:
+      context: .
+      dockerfile: ./docker-services/mysql/Dockerfile
+    volumes:
+      - ./docker-data/mysql:/var/lib/mysql
+      - ./docker-data/mysql-init:/docker-entrypoint-initdb.d/:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: "password"
+    networks:
+      - node-network
+  phpmyadmin:
+    container_name: "${APP_NAME_SHORT}d.phpmyadmin"
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - "${PMA_HTTP_PORT}:80"
+    environment:
+      PMA_HOST: mysqldb
+      PMA_PORT: ${PMA_PORT}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: "password"
+    networks:
+      - node-network
+networks:
+  node-network:
+    driver: bridge

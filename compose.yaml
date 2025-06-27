@@ -1,0 +1,54 @@
+name: "${APP_NAME}"
+services:
+  express:
+    container_name: "${APP_NAME_SHORT}.node-express"
+    build:
+      context: .
+      dockerfile: ./docker-services/express/Dockerfile
+    environment:
+      NODE_ENV: "production"
+      PORT: ${APP_PORT}
+      DB_HOST: "mysqldb"
+      DB_NAME: ${MYSQL_USER}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3000:${APP_PORT}"
+    volumes:
+      - ./app/server.mjs/:/www/server.mjs
+      - ./app/package.json/:/www/package.json
+      - ./app/src/:/www/src
+      - ./app/public/:/www/public
+    networks:
+      - node-network
+  mysqldb:
+    container_name: "${APP_NAME_SHORT}.mysql"
+    build:
+      context: .
+      dockerfile: ./docker-services/mysql/Dockerfile
+    volumes:
+      - ./docker-data/mysql:/var/lib/mysql
+      - ./docker-data/mysql-init:/docker-entrypoint-initdb.d/:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - node-network
+  phpmyadmin:
+    container_name: "${APP_NAME_SHORT}.phpmyadmin"
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    ports:
+      - "${PMA_HTTP_PORT}:80"
+    environment:
+      PMA_HOST: mysqldb
+      PMA_PORT: ${PMA_PORT}
+      PMA_USER: ${PMA_USER}
+    networks:
+      - node-network
+networks:
+  node-network:
+    driver: bridge
