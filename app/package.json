@@ -1,0 +1,22 @@
+{
+  "name": "course-quiz",
+  "version": "1.0.0",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "npx prettier ./ --write"
+  },
+  "author": "Andrey Zubets",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "twig": "^1.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prettier": "3.5.3"
+  }
+}
