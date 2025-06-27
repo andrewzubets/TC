@@ -37,6 +37,19 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
       - node-network
+  frontend:
+    container_name: "${APP_NAME_SHORT}d.frontend"
+    build:
+      context: .
+      dockerfile: ./docker-services/frontend/Dockerfile
+    volumes:
+      - ./app/public:/app/public
+      - ./frontend/vite.config.js:/www/vite.config.js
+      - ./frontend/src/:/www/src
+      - ./frontend/scss/:/www/scss
+      - ./frontend/public/:/www/public
+    networks:
+      - node-network
   phpmyadmin:
     container_name: "${APP_NAME_SHORT}.phpmyadmin"
     image: phpmyadmin/phpmyadmin:latest
@@ -45,8 +58,6 @@ services:
       - "${PMA_HTTP_PORT}:80"
     environment:
       PMA_HOST: mysqldb
-      PMA_PORT: ${PMA_PORT}
-      PMA_USER: ${PMA_USER}
     networks:
       - node-network
 networks:
