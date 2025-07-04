@@ -40,21 +40,24 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
       - node-network
-  frontend:
-    container_name: "${APP_NAME_SHORT}d.frontend"
-    build:
-      context: .
-      dockerfile: ./docker-services/frontend/Dockerfile
-    volumes:
-      - ./app/public:/app/public
-      - ./frontend/vite.config.js:/www/vite.config.js
-      - ./frontend/package.json:/www/package.json
-      - ./frontend/package-lock.json:/www/package-lock.json
-      - ./frontend/src/:/www/src
-      - ./frontend/scss/:/www/scss
-      - ./frontend/public/:/www/public
-    networks:
-      - node-network
+#
+# Notice: Production server can't handle frontend generation
+#
+#  frontend:
+#    container_name: "${APP_NAME_SHORT}d.frontend"
+#    build:
+#      context: .
+#      dockerfile: ./docker-services/frontend/Dockerfile
+#    volumes:
+#      - ./app/public:/app/public
+#      - ./frontend/vite.config.js:/www/vite.config.js
+#      - ./frontend/package.json:/www/package.json
+#      - ./frontend/package-lock.json:/www/package-lock.json
+#      - ./frontend/src/:/www/src
+#      - ./frontend/scss/:/www/scss
+#      - ./frontend/public/:/www/public
+#    networks:
+#      - node-network
   phpmyadmin:
     container_name: "${APP_NAME_SHORT}.phpmyadmin"
     image: phpmyadmin/phpmyadmin:latest

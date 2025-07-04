@@ -1,0 +1,13 @@
+{
+  "scss/app.scss": {
+    "file": "assets/app-CsNCMSUl.css",
+    "src": "scss/app.scss",
+    "isEntry": true
+  },
+  "src/main.jsx": {
+    "file": "assets/appjs-DD9CZWz9.js",
+    "name": "appjs",
+    "src": "src/main.jsx",
+    "isEntry": true
+  }
+}
