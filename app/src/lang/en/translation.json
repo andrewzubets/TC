@@ -1,0 +1,40 @@
+{
+    "test": {
+        "msg": "Welcome"
+    },
+    "error_page": {
+        "server_error_title": "Server error",
+        "back_home_btn": "Back home"
+    },
+    "error404": "Sorry, the page you visited does not exist.",
+    "error500": "Sorry, something went wrong.",
+    "db_error": {
+        "ECONNREFUSED": "Failed to connect database.",
+        "ER_CON_COUNT_ERROR": "Too many database connections.",
+        "ECONNRESET": "Database connection was reset.",
+        "ETIMEDOUT": "Database connection timeout."
+    },
+    "login_page": {
+        "login": "Log in",
+        "register_link": "Register",
+        "errors": {
+            "enter_email": "Please enter email",
+            "enter_password": "Please enter password",
+            "server_error": "Server error",
+            "wrong_credentials": "Invalid email or password",
+            "unauthorized": "You are not authorized",
+            "not_registered": "User with provided email not registered"
+        },
+        "email": "Email",
+        "password": "Password"
+    },
+    "roles": {
+        "guest": "Guest",
+        "user": "User",
+        "admin": "Administrator"
+    },
+    "header_user": {
+        "login": "Log in",
+        "logout": "Log out"
+    }
+}

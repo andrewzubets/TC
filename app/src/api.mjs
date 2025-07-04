@@ -1,26 +1,23 @@
 import fs from 'fs'
+import {errorHandler} from "./api/errors.mjs"
+import {getLocaleDataForFrontend,getFrontendAssets} from "./api/frontend.mjs"
+import {setupSession} from "./api/session.mjs"
+import {setupViews} from './api/views.mjs'
+import setupLocalization from "./modules/locale/api.mjs";
+import express from "express";
+import {setupAuth} from "./modules/users/api.mjs";
 
-const VITE_MANIFEST_PATH = process.cwd() + '/public/.vite/manifest.json';
-
-
-function readJson(path){
-    if(!fs.existsSync(path)){
-        return null;
-    }
-    const jsonContent = fs.readFileSync(path).toString();
-    return JSON.parse(jsonContent);
-}
-function getFrontendAssets() {
-    const viteManifest = readJson(VITE_MANIFEST_PATH);
-    if(!viteManifest){
-        return {};
-    }
-    return {
-        css: '/' + (viteManifest['scss/app.scss']).file,
-        js: '/' + (viteManifest['src/main.jsx']).file,
-    }
+function setupApplication(app) {
+    setupSession(app)
+    setupLocalization(app)
+    setupAuth(app)
+    setupViews(app)
+    app.use(express.static('public'))
 }
 
 export {
-    getFrontendAssets
+    getFrontendAssets,
+    errorHandler,
+    getLocaleDataForFrontend,
+    setupApplication
 }

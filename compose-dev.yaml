@@ -15,13 +15,16 @@ services:
       DB_NAME: ${MYSQL_USER}
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SESSION_DIR: ${SESSION_DIR}
       DEBUG: "nodemon,nodemon:*"
     ports:
       - "3000:${APP_PORT}"
       - "9229:9229"
     volumes:
       - ./app/server.mjs/:/www/server.mjs
-      - ./app/package.json/:/www/package.json
+#      - ./app/package.json/:/www/package.json
+#      - ./app/package-lock.json/:/www/package-lock.json
       - ./app/src/:/www/src
       - ./app/public/:/www/public
     networks:
@@ -65,7 +68,7 @@ services:
     environment:
       PMA_HOST: mysqldb
       PMA_PORT: ${PMA_PORT}
-      PMA_USER: ${PMA_USER}
+      PMA_USER: "root"
       PMA_PASSWORD: "password"
     networks:
       - node-network

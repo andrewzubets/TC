@@ -12,11 +12,14 @@ services:
       DB_NAME: ${MYSQL_USER}
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SESSION_DIR: ${SESSION_DIR}
     ports:
       - "3000:${APP_PORT}"
     volumes:
       - ./app/server.mjs/:/www/server.mjs
       - ./app/package.json/:/www/package.json
+      - ./app/package-lock.json/:/www/package-lock.json
       - ./app/src/:/www/src
       - ./app/public/:/www/public
     networks:
@@ -45,6 +48,8 @@ services:
     volumes:
       - ./app/public:/app/public
       - ./frontend/vite.config.js:/www/vite.config.js
+      - ./frontend/package.json:/www/package.json
+      - ./frontend/package-lock.json:/www/package-lock.json
       - ./frontend/src/:/www/src
       - ./frontend/scss/:/www/scss
       - ./frontend/public/:/www/public

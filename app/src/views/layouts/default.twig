@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
-    <link href="{{ frontendAssets.css ?? '' }}">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/antd.css" />
+    <link rel="stylesheet" href="{{ frontendAssets.css ?? '' }}">
+    <script type="text/javascript">
+        {% block headScript %}{% endblock %}
+    </script>
 </head>
 <body>
 <div id="app-root"></div>

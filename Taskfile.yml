@@ -1,0 +1,53 @@
+version: '3'
+
+tasks:
+ cp-config:
+    cmds:
+      - docker cp ./frontend/package.json cq.frontend:/www
+      - docker cp ./frontend/package-lock.json cq.frontend:/www   
+      - docker cp ./app/package.json cq.node-express:/www
+      - docker cp ./app/package-lock.json cq.node-express:/www
+ cp-config-dev:
+    cmds:
+      - docker cp ./frontend/package.json cqd.frontend:/www
+      - docker cp ./frontend/package-lock.json cqd.frontend:/www   
+      - docker cp ./app/package.json cqd.node-express:/www
+      - docker cp ./app/package-lock.json cqd.node-express:/www         
+ frontent-cp-dev:
+    cmds:
+      - docker cp ./frontend/package.json cqd.frontend:/www
+      - docker cp ./frontend/package-lock.json cqd.frontend:/www
+ frontent-cp:
+    cmds:
+      - docker cp ./frontend/package.json cq.frontend:/www
+      - docker cp ./frontend/package-lock.json cq.frontend:/www
+ express-cp-dev:
+   cmds:
+     - docker cp ./app/package.json cqd.node-express:/www
+     - docker cp ./app/package-lock.json cqd.node-express:/www
+ express-cp:
+   cmds:
+     - docker cp ./app/package.json cq.node-express:/www
+     - docker cp ./app/package-lock.json cq.node-express:/www
+ express-i:
+   cmds:
+     - docker compose exec cq.node-express npm install
+ express-i-dev:
+   cmds:
+     - docker compose exec cqd.node-express npm install
+ compose-dev:
+   cmds:
+     - docker compose -f compose-dev.yaml up
+ bf-dev:
+   cmds:
+     - docker start cqd.frontend
+ bf:
+   cmds:
+     - docker start cq.frontend
+     - docker restart cqd.node-express
+ restart-dev:
+   cmds:
+     - docker restart cqd.node-express
+ restart:
+   cmds:
+     - docker restart cq.node-express

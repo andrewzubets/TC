@@ -9,7 +9,7 @@ import {
     selectCount,
     // selectStatus,
 } from "../store/slices/counterSlice.mjs"
-import { useState } from 'react'
+
 import { useDispatch, useSelector } from 'react-redux'
 
 function Counter(){

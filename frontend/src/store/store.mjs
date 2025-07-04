@@ -2,7 +2,7 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import rootReducer from './slices/index.mjs'
 import { setupListeners } from "@reduxjs/toolkit/query"
 
-console.log('rootReducer', rootReducer);
+
 export const makeStore = (preloadedState) => {
     const store = configureStore({
         reducer: rootReducer,
@@ -19,10 +19,10 @@ export const makeStore = (preloadedState) => {
     return store
 }
 
+const preloadedState = window.__PRELOADED_STATE__ || {};
+delete window.__PRELOADED_STATE__;
+
 const store
-    = makeStore({
-    counter: {value: 0}
-})
-console.log(store.getState());
+    = makeStore(preloadedState)
 
 export { store }

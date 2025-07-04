@@ -1,0 +1,5 @@
+{% extends 'layouts/default.twig' %}
+{% block headScript %}
+    window.i18n = {{ i18n | json_encode }};
+    window.__PRELOADED_STATE__ = {{ preloadedState | json_encode }};
+{% endblock %}

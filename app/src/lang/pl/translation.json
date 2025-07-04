@@ -1,0 +1,40 @@
+{
+  "test": {
+    "msg": "Welcome pl"
+  },
+  "error_page": {
+    "server_error_title": "Błąd serwera",
+    "back_home_btn": "Wróć na stronę główną"
+  },
+  "error404": "Niestety, odwiedzona przez Ciebie strona nie istnieje.",
+  "error500": "Przepraszamy, coś poszło nie tak.",
+  "db_error": {
+    "ECONNREFUSED": "Nie udało się połączyć z bazą danych.",
+    "ER_CON_COUNT_ERROR": "Zbyt wiele połączeń z bazą danych.",
+    "ECONNRESET": "Połączenie z bazą danych zostało zresetowane.",
+    "ETIMEDOUT": "Przekroczono limit czasu połączenia z bazą danych."
+  },
+  "login_page": {
+    "login": "Zaloguj się",
+    "register_link": "Rejestr",
+    "errors": {
+      "enter_email": "Proszę wpisać e-mail",
+      "enter_password": "Proszę wprowadzić hasło",
+      "server_error": "Błąd serwera",
+      "wrong_credentials": "Nieprawidłowy adres e-mail lub hasło",
+      "unauthorized": "Nie masz uprawnień",
+      "not_registered": "Użytkownik z podanym adresem e-mail nie jest zarejestrowany"
+    },
+    "email": "Email",
+    "password": "Hasło"
+  },
+  "roles": {
+    "guest": "Gość",
+    "user": "Użytkownik",
+    "admin": "Administrator"
+  },
+  "header_user": {
+    "login": "Zaloguj się",
+    "logout": "Wyloguj się"
+  }
+}

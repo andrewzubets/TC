@@ -6,6 +6,9 @@ WORKDIR /www
 COPY ./app/package.json ./package.json
 COPY ./app/package-lock.json ./package-lock.json
 
+RUN mkdir -p /www/storage
+RUN touch /www/storage/session.sqlite
+
 RUN npm install
 
 RUN if [ "$APP_ENV" = "development" ]; then \
@@ -15,4 +18,4 @@ RUN if [ "$APP_ENV" = "development" ]; then \
 
 EXPOSE 80
 
-CMD npm i && node server.mjs
+CMD node server.mjs

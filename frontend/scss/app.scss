@@ -1,6 +1,16 @@
-@use "two";
+//@use "two";
 
-body {
-    color: blue;
+.az-header{
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between
 }
-
+.az-main-content{
+    padding: 25px 50px;
+}
+.az-main-content-inner{
+    min-height: 280px;
+    padding: 24px;
+    background: #fff;
+}

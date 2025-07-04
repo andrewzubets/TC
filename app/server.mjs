@@ -1,26 +1,38 @@
 import express from 'express'
 import mysql from 'mysql2'
-import axios from 'axios'
-import fs from 'fs';
-import twig from 'twig';
-import { getFrontendAssets } from './src/api.mjs'
 
+import {
+    getFrontendAssets,
+    errorHandler,
+    getLocaleDataForFrontend,
+    setupApplication
+}
+    from './src/api.mjs'
+
+import setupLocalization from "./src/modules/locale/api.mjs";
+
+import {isApiRequest, isAssetRequest} from "./src/api/request.mjs";
+import {dbSequelize} from "./src/api/database.mjs";
 
 const app = express()
+setupApplication(app)
 
-app.set('views', process.cwd() + '/src/views');
-app.set('view engine', 'twig');
-app.use(express.static('public'));
-app.set("twig options", {
 
-});
-app.get('/test',async function(req, res) {
-    const frontendAssets = getFrontendAssets();
-    res.render('home', {
-        frontendAssets
-    });
+app.get('/testuser', async function (req, res) {
+    res.json({
+        user: req.user
+    })
 })
-app.get('/', function (req, res) {
+app.get('/testdb2', async function (req, res) {
+    try {
+        await dbSequelize.authenticate();
+        res.send('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+        res.send('Unable to connect to the database');
+    }
+})
+app.get('/testdb', function (req, res) {
 
     const connection = mysql.createConnection({
         host: process.env.DB_HOST,
@@ -36,6 +48,18 @@ app.get('/', function (req, res) {
         }
     })
 })
+app.use((req, res) => {
+    if(isAssetRequest(req) || isApiRequest(req)) {
+        return res.status(404).send();
+    }
+
+    return res.render('react', {
+        i18n: getLocaleDataForFrontend(req.i18n),
+        frontendAssets: getFrontendAssets()
+    });
+})
+
+app.use(errorHandler);
 app.listen(3000, () => {
     console.log(`App listening on port 3000`)
 })
