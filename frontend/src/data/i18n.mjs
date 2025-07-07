@@ -10,6 +10,22 @@ export const FORM_REGISTER_LINK_LABEL = t(['login_page','register_link'],'Regist
 export const HEADER_MENU_LOGIN_LABEL = t(['header_user','login'],'Log in')
 export const HEADER_MENU_LOGOUT_LABEL = t(['header_user','logout'],'Log out')
 
+export const PAGE_HOME_TITLE = t(['pages','home'],'Home')
+export const PAGE_PERSONAL_TITLE = t(['pages','personal'],'Home')
+
+export const TEMPLATES_TITLE = t(['templates','title'],'Templates')
+
+export const VISIBILITY_HIDDEN_LABEL = t(['templates','visibility','hidden'],'Hidden')
+export const VISIBILITY_RESTRICTED_LABEL = t(['templates','visibility','restricted'],'Restricted')
+export const VISIBILITY_PUBLIC_LABEL = t(['templates','visibility','public'],'Public')
+
+export const VISIBILITY_LABELS = {
+    1 : VISIBILITY_HIDDEN_LABEL,
+    2 : VISIBILITY_RESTRICTED_LABEL,
+    3 : VISIBILITY_PUBLIC_LABEL
+}
+
+
 export const LANGUAGES = window.i18n?.languages || [{
     code: 'en',
     href: '/locale/change?lng=en',

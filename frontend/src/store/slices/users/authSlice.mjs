@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import axios from "axios";
+import {useNavigate} from "react-router";
 
 function getGuestUser() {
     return {
@@ -23,18 +24,20 @@ export const fetchLogin = createAsyncThunk('user/login',
     return responseData;
 });
 
+
 export const fetchUser = createAsyncThunk('user/get',
-    async () => {
+    async (id = null) => {
         let responseData = null
-        await axios.get('/api/user')
-                .then(r => {
-                    responseData = r.data
-                })
-                .catch((error) => {
-                    responseData = error.response.data;
-                })
+        await axios.get('/api/user' + (id === null ? '/' + id : ''))
+            .then(r => {
+                responseData = r.data
+            })
+            .catch((error) => {
+                responseData = error.response.data;
+            })
         return responseData;
     });
+
 export const fetchLogout = createAsyncThunk('user/logout',
     async () => {
         let responseData = null
