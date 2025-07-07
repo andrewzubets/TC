@@ -1,5 +1,7 @@
 import passport from "passport";
 import {getSessionUser} from "../../../api/session.mjs";
+import {getUserModelResponse} from "../api/response.mjs";
+import UserModel from "../models/UserModel.mjs";
 
 
 export function logoutHandler(req, res, next){
@@ -17,7 +19,6 @@ export function logoutHandler(req, res, next){
 
 export function loginHandler(req, res, next) {
     passport.authenticate('local', function(error, user, info) {
-        console.log(info)
         if(error) {
             return res.status(500).json(error);
         }
@@ -27,7 +28,7 @@ export function loginHandler(req, res, next) {
                 "code": info.code,
             });
         }
-        req.login(getSessionUser(user), function (err) {
+        req.login(getSessionUser(user), async function (err) {
             if (err) {
                 console.error('err', err)
                 return res.json({
@@ -37,7 +38,7 @@ export function loginHandler(req, res, next) {
             }
             res.json({
                 "success": true,
-                "user": user,
+                "user": getUserModelResponse(await UserModel.findOneById(user.id)),
             })
         })
     })(req, res, next)

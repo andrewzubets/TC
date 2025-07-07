@@ -36,5 +36,17 @@
   "header_user": {
     "login": "Zaloguj się",
     "logout": "Wyloguj się"
+  },
+  "pages": {
+    "home": "Główna",
+    "personal": "Strona osobista"
+  },
+  "templates": {
+    "title": "Szablony",
+    "visibility": {
+      "hidden": "Ukryty",
+      "restricted": "Ograniczony",
+      "public": "Publiczny"
+    }
   }
 }

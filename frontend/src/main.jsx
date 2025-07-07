@@ -1,20 +1,24 @@
 import { createRoot } from 'react-dom/client'
-import {Provider, useDispatch} from "react-redux"
-import {HomePage, LoginPage} from './pages/index.mjs'
+import {Provider} from "react-redux"
+import {HomePage, LoginPage, PersonalPage} from './pages/index.mjs'
 
 import { store } from './store/store.mjs'
 import {
     createBrowserRouter,
-    RouterProvider, useLoaderData,
+    RouterProvider,
 } from 'react-router'
 import ErrorPage404 from './pages/errors/Page404.jsx'
-import {fetchUser} from "./store/slices/authSlice.mjs";
+
 
 
 let router = createBrowserRouter([
     {
         path: "/",
         Component: HomePage
+    },
+    {
+        path: "/user/:id",
+        Component: PersonalPage
     },
     {
         path: "/login",

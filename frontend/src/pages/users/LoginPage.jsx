@@ -2,17 +2,16 @@ import {NavLink, useNavigate} from 'react-router'
 import { Form, Input} from "antd";
 import {memo, useEffect, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import LoginRegisterLayout from "../components/layouts/LoginRegisterLayout.jsx";
+import LoginRegisterLayout from "../../components/layouts/LoginRegisterLayout.jsx";
 
 import {
     ERROR_EMPTY_PASSWORD,
     ERROR_EMPTY_EMAIL,
     FORM_PASSWORD_LABEL, FORM_REGISTER_LINK_LABEL,
     LOGIN_PAGE_TITLE, FORM_EMAIL_LABEL
-} from "../data/i18n.mjs";
-import {fetchLogin, selectAuth, selectLoginError, selectStatus, setAuth} from "../store/slices/authSlice.mjs";
-import axios from "axios";
-import {t} from "../api.mjs";
+} from "../../data/i18n.mjs";
+import {fetchLogin, selectAuth, selectLoginError, selectStatus} from "../../store/slices/users/authSlice.mjs";
+import {t} from "../../api.mjs";
 
 
 
@@ -22,7 +21,6 @@ function LoginPage() {
     const dispatch = useDispatch()
     const loginStatus = useSelector(selectStatus);
     const currentUser = useSelector(selectAuth);
-    const isAuth = currentUser.is_auth || false;
     const loginError = useSelector(selectLoginError);
     const isLoading = loginStatus === 'loading';
 
@@ -48,10 +46,11 @@ function LoginPage() {
     }, [loginStatus]);
 
     useEffect(() => {
-      if(isAuth){
-          navigate('/')
+        console.log('currentUser', currentUser)
+      if(currentUser.is_auth){
+          navigate('/user/' + currentUser.id)
       }
-    }, [isAuth])
+    }, [currentUser])
     const onSubmit = () =>{
         if(isLoading){
             return;
@@ -87,6 +86,7 @@ function LoginPage() {
                 <Form.Item>
                     <SubmitBtn loading={isLoading} />
                 </Form.Item>
+                <p>Login: admin@example.com, Password: 1</p>
                 <Form.Item>
                     <RegisterBtn />
                 </Form.Item>

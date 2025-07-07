@@ -4,8 +4,8 @@ import {
 } from '@ant-design/icons';
 
 import { useDispatch, useSelector } from 'react-redux'
-import {fetchLogout, fetchUser, selectAuth} from "../../store/slices/authSlice.mjs";
-import {HEADER_MENU_LOGIN_LABEL, HEADER_MENU_LOGOUT_LABEL} from "../../data/i18n.mjs";
+import {fetchLogout, fetchUser, selectAuth} from "../../store/slices/users/authSlice.mjs";
+import {HEADER_MENU_LOGIN_LABEL, HEADER_MENU_LOGOUT_LABEL, PAGE_PERSONAL_TITLE} from "../../data/i18n.mjs";
 import { useEffect} from "react";
 import {useNavigate} from "react-router";
 
@@ -40,9 +40,14 @@ function GuestMenu(){
     </Menu>);
 }
 function AuthorizedMenu({onLogoutClick, user}){
+    const navigate = useNavigate();
     const title = getAuthTitle(user)
+    const gotoPersonalPage = () => {
+        navigate('/user/' + user.id)
+    }
     return (<Menu mode="horizontal" inlineCollapsed={false} disabledOverflow={true}>
         <Menu.SubMenu key="two" icon={<IconUserOutlined />}  title={title}>
+            <Menu.Item onClick={gotoPersonalPage}>{PAGE_PERSONAL_TITLE}</Menu.Item>
             <Menu.Item onClick={onLogoutClick}>{HEADER_MENU_LOGOUT_LABEL}</Menu.Item>
         </Menu.SubMenu>
     </Menu>);

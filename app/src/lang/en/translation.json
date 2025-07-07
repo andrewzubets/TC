@@ -36,5 +36,17 @@
     "header_user": {
         "login": "Log in",
         "logout": "Log out"
+    },
+    "pages": {
+       "home": "Home",
+       "personal": "Personal page"
+    },
+    "templates": {
+        "title": "Templates",
+        "visibility": {
+            "hidden": "Hidden",
+            "restricted": "Restricted",
+            "public": "Public"
+        }
     }
 }
